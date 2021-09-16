@@ -24,7 +24,7 @@ public class TratamentoExcecao {
             String mensagem =  ex.getFieldErrors().get(i).getDefaultMessage();
             //String mensagem = ex.getFieldError().getDefaultMessage();
             erros.add(new Erro(campo, mensagem));
-        };
+        }
         return erros;
     }
 

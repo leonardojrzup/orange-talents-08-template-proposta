@@ -37,10 +37,8 @@ public class NovaPropostaControllerTest {
     @Autowired
     private PropostaRepository repository;
 
-
     @Test
     public void cadastroComSucesso() throws Exception {
-
 
         PropostaForm form = new PropostaForm("70343430126","leojunior1326@gmail.com","Leonardo", "Rua dois", new BigDecimal(2.500));
 
@@ -86,9 +84,7 @@ public class NovaPropostaControllerTest {
     public void naoDeveCadastrarDocumentoDuplicado() throws Exception {
 
         Proposta proposta = new Proposta("16922635019","leojunior@gmail.com","Leonardo", "Rua dois", new BigDecimal(2.500));
-
-    repository.save(proposta);
-
+        repository.save(proposta);
 
         PropostaForm form = new PropostaForm("16922635019","leojunior1326@gmail.com","Leonardo", "Rua dois", new BigDecimal(2.500));
 
@@ -101,7 +97,6 @@ public class NovaPropostaControllerTest {
                 .andExpect(status().isUnprocessableEntity());
 
     }
-
 
 
     @Test
@@ -118,12 +113,9 @@ public class NovaPropostaControllerTest {
 
     }
 
-
-
     @Test
     public void naoDeveCadastrarEmailNulo() throws Exception {
         PropostaForm form = new PropostaForm("57984420041","","Leonardo", "Rua dois", new BigDecimal(2.500));
-
 
         MockHttpServletRequestBuilder request = post("/propostas")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -139,14 +131,12 @@ public class NovaPropostaControllerTest {
     public void naoDeveCadastrarNomeBranco() throws Exception {
         PropostaForm form = new PropostaForm("75195930023","leojunior1326@gmail.com","", "Rua dois", new BigDecimal(2.500));
 
-
         MockHttpServletRequestBuilder request = post("/propostas")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(form));
 
         mvc.perform(request)
                 .andExpect(status().isBadRequest());
-
     }
 
     @Test
@@ -174,22 +164,17 @@ public class NovaPropostaControllerTest {
 
         mvc.perform(request)
                 .andExpect(status().isBadRequest());
-
     }
 
     @Test
     public void naoDeveCadastrarSalarioNegativo() throws Exception {
         PropostaForm form = new PropostaForm("69544625003","leojunior1326@gmail.com","Leonardo", "Rua dois", new BigDecimal(-1L));
 
-
         MockHttpServletRequestBuilder request = post("/propostas")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(form));
-
         mvc.perform(request)
                 .andExpect(status().isBadRequest());
 
     }
-
-
 }

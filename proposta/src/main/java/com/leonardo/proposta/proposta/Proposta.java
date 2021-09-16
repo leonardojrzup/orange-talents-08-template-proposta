@@ -19,7 +19,7 @@ public class Proposta {
     private String documento;
 
 
-    @NotNull
+    @NotBlank
     @Email
     private String email;
 
