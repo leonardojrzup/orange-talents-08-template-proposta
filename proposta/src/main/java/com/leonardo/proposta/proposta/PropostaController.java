@@ -19,8 +19,6 @@ public class PropostaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> salvarProposta(@RequestBody @Valid PropostaForm form){
-        System.out.println(form.getDocumento());
-        System.out.println(form.getNome());
     Proposta proposta = form.toModel();
     propostaRepository.save(proposta);
         URI uri = ServletUriComponentsBuilder
