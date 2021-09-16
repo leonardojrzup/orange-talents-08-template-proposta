@@ -27,4 +27,13 @@ public class TratamentoExcecao {
         };
         return erros;
     }
+
+    @ExceptionHandler(RegistroDuplicadoException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public List<Erro> registroDuplicadoException(RegistroDuplicadoException ex) {
+        return List.of(new Erro(ex.getCampo(), ex.getMensagem()));
+    }
 }
+
+
+

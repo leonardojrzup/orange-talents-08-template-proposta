@@ -13,7 +13,8 @@ public class PropostaForm {
     @Documento
     private String documento;
 
-    @NotNull
+
+    @NotBlank
     @Email
     private String email;
 

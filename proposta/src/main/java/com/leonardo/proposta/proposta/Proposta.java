@@ -71,4 +71,12 @@ public class Proposta {
     public BigDecimal getSalario() {
         return salario;
     }
+
+    public boolean isUnique(PropostaRepository propostaRepository) {
+        if(propostaRepository.findByDocumento(this.documento).isPresent()){
+            return  false;
+        }
+        return true;
+
+    }
 }
