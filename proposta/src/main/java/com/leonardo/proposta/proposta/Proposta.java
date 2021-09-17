@@ -1,6 +1,12 @@
 package com.leonardo.proposta.proposta;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosClient;
+import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosDTO;
+import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosForm;
 import com.leonardo.proposta.validacao.*;
+import feign.FeignException;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -18,11 +24,9 @@ public class Proposta {
     @Documento
     private String documento;
 
-
     @NotBlank
     @Email
     private String email;
-
 
     @NotBlank
     private String nome;
@@ -35,6 +39,13 @@ public class Proposta {
     private BigDecimal salario;
 
 
+    private StatusProposta Status;
+
+
+    public StatusProposta getStatus() {
+        return Status;
+    }
+
     public Proposta(String documento, String email, String nome, String endereco, BigDecimal salario) {
         this.documento = documento;
         this.email = email;
@@ -45,9 +56,7 @@ public class Proposta {
 
     @Deprecated
     public Proposta(){}
-
-
-
+    
     public Long getId() {
         return id;
     }
@@ -72,11 +81,31 @@ public class Proposta {
         return salario;
     }
 
+    public void setStatus(StatusProposta status) {
+        Status = status;
+    }
+
     public boolean isUnique(PropostaRepository propostaRepository) {
         if(propostaRepository.findByDocumento(this.documento).isPresent()){
             return  false;
         }
         return true;
+    }
 
+    public void verificaSituacaoFinanceira(DadosFinanceirosClient situacaoFinanceiraClient) throws JsonProcessingException {
+        DadosFinanceirosForm request = new DadosFinanceirosForm(this);
+        DadosFinanceirosDTO response;
+
+         try {
+             response = situacaoFinanceiraClient.consultar(request);
+         }catch (FeignException exception) {
+             ObjectMapper objectMapper = new ObjectMapper();
+             response = objectMapper.readValue(exception.contentUTF8(), DadosFinanceirosDTO.class);
+         }
+
+
+    System.out.println("###############################################");
+         System.out.println(response.getResultadoSolicitacao());
+        this.setStatus(StatusProposta.converter(response.getResultadoSolicitacao()));
     }
 }
