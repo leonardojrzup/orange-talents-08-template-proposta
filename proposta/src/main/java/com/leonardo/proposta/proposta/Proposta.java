@@ -102,10 +102,6 @@ public class Proposta {
              ObjectMapper objectMapper = new ObjectMapper();
              response = objectMapper.readValue(exception.contentUTF8(), DadosFinanceirosDTO.class);
          }
-
-
-    System.out.println("###############################################");
-         System.out.println(response.getResultadoSolicitacao());
         this.setStatus(StatusProposta.converter(response.getResultadoSolicitacao()));
     }
 }

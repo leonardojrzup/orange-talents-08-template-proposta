@@ -25,12 +25,6 @@ public class PropostaController {
     DadosFinanceirosClient dadosFinanceirosClient;
 
 
-    @GetMapping
-    public List<Proposta> Buscar(){
-        return (List<Proposta>) propostaRepository.findAll();
-    }
-
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
