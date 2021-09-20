@@ -2,6 +2,7 @@ package com.leonardo.proposta.proposta;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.leonardo.proposta.proposta.cartoes.*;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosClient;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosDTO;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosForm;
@@ -39,12 +40,11 @@ public class Proposta {
     private BigDecimal salario;
 
 
-    private StatusProposta Status;
+    private StatusProposta status;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cartao cartao;
 
-    public StatusProposta getStatus() {
-        return Status;
-    }
 
     public Proposta(String documento, String email, String nome, String endereco, BigDecimal salario) {
         this.documento = documento;
@@ -81,9 +81,6 @@ public class Proposta {
         return salario;
     }
 
-    public void setStatus(StatusProposta status) {
-        Status = status;
-    }
 
     public boolean isUnique(PropostaRepository propostaRepository) {
         if(propostaRepository.findByDocumento(this.documento).isPresent()){
@@ -99,9 +96,30 @@ public class Proposta {
          try {
              response = situacaoFinanceiraClient.consultar(request);
          }catch (FeignException exception) {
+             //exception.printStackTrace();
              ObjectMapper objectMapper = new ObjectMapper();
              response = objectMapper.readValue(exception.contentUTF8(), DadosFinanceirosDTO.class);
+
          }
         this.setStatus(StatusProposta.converter(response.getResultadoSolicitacao()));
+    }
+
+
+    public StatusProposta getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusProposta status) {
+        this.status = status;
+    }
+
+    public void adicionarCartão(Cartao cartao){
+        if(this.cartao == null){
+                this.cartao = cartao;
+        }
+    }
+
+    public Cartao getCartao() {
+        return cartao;
     }
 }

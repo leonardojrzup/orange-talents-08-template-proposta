@@ -8,6 +8,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.*;
 
+import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.*;
 import javax.validation.constraints.*;
@@ -37,6 +38,7 @@ public class PropostaController {
 
         propostaRepository.save(proposta);//Precisa gerar o id para realizar a consulta na API
         proposta.verificaSituacaoFinanceira(dadosFinanceirosClient);
+
         propostaRepository.save(proposta);
 
         URI uri = ServletUriComponentsBuilder

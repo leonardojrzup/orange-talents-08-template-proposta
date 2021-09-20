@@ -7,10 +7,10 @@ public enum StatusProposta {
     ELEGIVEL;
 
     public static StatusProposta converter(String statusSolicitacao) {
-        if(statusSolicitacao.equals(StatusSolicitacao.COM_RESTRICAO.toString()))
+        if(statusSolicitacao.equals(StatusSolicitacao.COM_RESTRICAO.toString())){
             return NAO_ELEGIVEL;
-        else
+        }else{
             return ELEGIVEL;
     }
 
-}
+}}
