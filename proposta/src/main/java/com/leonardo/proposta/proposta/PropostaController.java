@@ -30,11 +30,9 @@ public class PropostaController {
     @GetMapping("/{id}")
     public ResponseEntity<PropostaDTO> detalharProposta(@PathVariable("id") Long id) {
         Optional<Proposta> proposta = propostaRepository.findById(id);
-
         if (proposta.isPresent()) {
             Proposta propostaSalva = proposta.get();
             return ResponseEntity.status(HttpStatus.OK).body(new PropostaDTO(propostaSalva));
-
         }else{
             throw new EntityNotFoundException("ID da proposta não encontrado no banco de dados.");
     }
