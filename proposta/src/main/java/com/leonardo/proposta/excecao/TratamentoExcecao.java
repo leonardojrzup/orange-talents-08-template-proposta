@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.*;
 import org.springframework.web.servlet.mvc.method.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.*;
 
 @RestControllerAdvice
@@ -18,10 +19,10 @@ public class TratamentoExcecao {
 
         List<Erro> erros = new ArrayList<>();
         for (int i = 0; i < ex.getFieldErrors().size(); i++) {//melhorar esse for
-        ex.getFieldErrors().get(i).getField();
+            ex.getFieldErrors().get(i).getField();
 
-            String campo =  ex.getFieldErrors().get(i).getField();
-            String mensagem =  ex.getFieldErrors().get(i).getDefaultMessage();
+            String campo = ex.getFieldErrors().get(i).getField();
+            String mensagem = ex.getFieldErrors().get(i).getDefaultMessage();
             //String mensagem = ex.getFieldError().getDefaultMessage();
             erros.add(new Erro(campo, mensagem));
         }
@@ -33,7 +34,17 @@ public class TratamentoExcecao {
     public List<Erro> registroDuplicadoException(RegistroDuplicadoException ex) {
         return List.of(new Erro(ex.getCampo(), ex.getMensagem()));
     }
-}
 
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    public Erro handleEntityNotFound(EntityNotFoundException ex) {
+        String campo = "Id";
+        // String mensagem =  ex.getFieldErrors().get(i).getDefaultMessage();
+        String mensagem = ex.getMessage();
+        return new Erro(campo, mensagem);
+
+    }
+}
 
 
