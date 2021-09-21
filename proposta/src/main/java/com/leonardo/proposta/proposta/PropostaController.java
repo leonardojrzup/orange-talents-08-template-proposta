@@ -14,6 +14,7 @@ import javax.validation.*;
 import javax.validation.constraints.*;
 import java.net.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/propostas")
@@ -25,6 +26,19 @@ public class PropostaController {
     @Autowired
     DadosFinanceirosClient dadosFinanceirosClient;
 
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PropostaDTO> detalharProposta(@PathVariable("id") Long id) {
+        Optional<Proposta> proposta = propostaRepository.findById(id);
+
+        if (proposta.isPresent()) {
+            Proposta propostaSalva = proposta.get();
+            return ResponseEntity.status(HttpStatus.CREATED).body(PropostaDTO.toDTO(propostaSalva));
+
+        }else{
+            throw new EntityNotFoundException("ID da proposta não encontrado no banco de dados.");
+    }
+}
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
