@@ -23,19 +23,13 @@ public class PropostaDTO {
         }
 
         public PropostaDTO(Proposta propostaSalva){
+                this.id = propostaSalva.getId();
                 this.documento = propostaSalva.getDocumento();
                 this.email = propostaSalva.getEmail();
                 this.nome = propostaSalva.getNome();
                 this.endereco = propostaSalva.getEndereco();
                 this.salario = propostaSalva.getSalario();
                 this.statusProposta = propostaSalva.getStatus();
-        }
-
-
-        public static PropostaDTO toDTO(Proposta propostaSalva) {
-            return new PropostaDTO(propostaSalva.getDocumento(), propostaSalva.getEmail(),
-                       propostaSalva.getNome(), propostaSalva.getEndereco(), propostaSalva.getSalario(),
-                       propostaSalva.getStatus());
         }
 
         public Long getId() {

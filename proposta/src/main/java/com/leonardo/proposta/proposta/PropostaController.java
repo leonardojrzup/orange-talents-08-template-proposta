@@ -33,7 +33,7 @@ public class PropostaController {
 
         if (proposta.isPresent()) {
             Proposta propostaSalva = proposta.get();
-            return ResponseEntity.status(HttpStatus.CREATED).body(PropostaDTO.toDTO(propostaSalva));
+            return ResponseEntity.status(HttpStatus.OK).body(new PropostaDTO(propostaSalva));
 
         }else{
             throw new EntityNotFoundException("ID da proposta não encontrado no banco de dados.");
