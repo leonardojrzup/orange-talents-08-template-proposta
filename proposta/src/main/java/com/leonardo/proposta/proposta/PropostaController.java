@@ -25,7 +25,7 @@ public class PropostaController {
 
     @Autowired
     DadosFinanceirosClient dadosFinanceirosClient;
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<PropostaDTO> detalharProposta(@PathVariable("id") Long id) {
         Optional<Proposta> proposta = propostaRepository.findById(id);

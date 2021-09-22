@@ -1,8 +1,7 @@
-package com.leonardo.proposta.proposta.cartoes;
+package com.leonardo.proposta.proposta.cartao;
 
 import com.leonardo.proposta.proposta.*;
 
-import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.*;
 import java.time.*;

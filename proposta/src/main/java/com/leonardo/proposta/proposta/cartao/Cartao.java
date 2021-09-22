@@ -1,12 +1,15 @@
-package com.leonardo.proposta.proposta.cartoes;
+package com.leonardo.proposta.proposta.cartao;
 
-import com.fasterxml.jackson.annotation.*;
-import com.leonardo.proposta.proposta.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.leonardo.proposta.proposta.Proposta;
+import com.leonardo.proposta.proposta.cartao.biometria.Biometria;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-import java.math.*;
-import java.time.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Cartao {
@@ -28,6 +31,9 @@ public class Cartao {
     @OneToOne(mappedBy = "cartao")
     @JsonIgnore
     private Proposta proposta;
+
+    @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
+    private List<Biometria> biometrias;
 
     @Deprecated
     public Cartao() {
@@ -59,6 +65,16 @@ public class Cartao {
     public Proposta getProposta() {
         return proposta;
     }
+
+    public List<Biometria> getBiometrias() {
+        return biometrias;
+    }
+
+    public void adicionarBiometria(Biometria biometria) {
+        this.biometrias.add(biometria);
+    }
+
+
 }
 
 

@@ -1,4 +1,4 @@
-package com.leonardo.proposta.proposta.cartoes;
+package com.leonardo.proposta.proposta.cartao;
 
 
 import com.leonardo.proposta.proposta.*;

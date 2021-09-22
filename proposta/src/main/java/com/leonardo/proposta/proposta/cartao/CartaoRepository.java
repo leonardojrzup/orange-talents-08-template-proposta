@@ -1,4 +1,4 @@
-package com.leonardo.proposta.proposta.cartoes;
+package com.leonardo.proposta.proposta.cartao;
 
 import org.springframework.data.repository.*;
 import org.springframework.stereotype.Repository;

@@ -1,14 +1,16 @@
 package com.leonardo.proposta.excecao;
 
 
-import org.springframework.http.*;
-import org.springframework.web.bind.*;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.*;
-import org.springframework.web.servlet.mvc.method.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestControllerAdvice
 public class TratamentoExcecao {
@@ -45,6 +47,15 @@ public class TratamentoExcecao {
         return new Erro(campo, mensagem);
 
     }
+
+    @ExceptionHandler(RegraNegocioException.class)
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    public Erro handleRegraDeNegocioException(RegraNegocioException ex) {
+        String campo = ex.getCampo();
+        String mensagem = ex.getMensagem();
+        return new Erro(campo, mensagem);
+    }
+
 }
 
 

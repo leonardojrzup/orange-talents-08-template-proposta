@@ -2,7 +2,7 @@ package com.leonardo.proposta.proposta;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leonardo.proposta.proposta.cartoes.*;
+import com.leonardo.proposta.proposta.cartao.*;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosClient;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosDTO;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosForm;
@@ -11,7 +11,6 @@ import feign.FeignException;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.lang.annotation.*;
 import java.math.*;
 
 @Entity

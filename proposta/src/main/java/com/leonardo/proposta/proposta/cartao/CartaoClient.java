@@ -1,7 +1,6 @@
-package com.leonardo.proposta.proposta.cartoes;
+package com.leonardo.proposta.proposta.cartao;
 
 
-import com.leonardo.proposta.proposta.situacaoFinanceira.*;
 import org.springframework.cloud.openfeign.*;
 import org.springframework.web.bind.annotation.*;
 
