@@ -3,6 +3,7 @@ package com.leonardo.proposta.proposta.cartao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.leonardo.proposta.proposta.Proposta;
 import com.leonardo.proposta.proposta.cartao.biometria.Biometria;
+import com.leonardo.proposta.proposta.cartao.bloqueio.Bloqueio;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -28,6 +29,10 @@ public class Cartao {
     @NotNull
     private BigDecimal limite;
 
+
+    private StatusCartao statusCartao;
+
+
     @OneToOne(mappedBy = "cartao")
     @JsonIgnore
     private Proposta proposta;
@@ -35,11 +40,15 @@ public class Cartao {
     @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
     private List<Biometria> biometrias;
 
+    @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
+    private List<Bloqueio> bloqueios;
+
     @Deprecated
     public Cartao() {
     }
 
     public Cartao(LocalDateTime emitidoEm, String numero, BigDecimal limite, Proposta proposta) {
+        this.statusCartao = StatusCartao.DESBLOQUEADO;
         this.emitidoEm = emitidoEm;
         this.numero = numero;
         this.limite = limite;
@@ -70,14 +79,35 @@ public class Cartao {
         return biometrias;
     }
 
+    public List<Bloqueio> getBloqueios() {
+        return bloqueios;
+    }
+
+    public void setStatusCartao(StatusCartao statusCartao) {
+        this.statusCartao = statusCartao;
+    }
+
+    public StatusCartao getStatusCartao() {
+        return statusCartao;
+    }
+
     public void adicionarBiometria(Biometria biometria) {
         this.biometrias.add(biometria);
     }
 
+    public void adicionarBloqueio(Bloqueio bloqueio) {
+
+        this.bloqueios.add(bloqueio);
+    }
+
+    public boolean isBloqueado() {
+        if (statusCartao.equals(StatusCartao.BLOQUEADO)) {
+            return true;
+        }
+        return false;
+    }
 
 }
-
-
 
 
 
