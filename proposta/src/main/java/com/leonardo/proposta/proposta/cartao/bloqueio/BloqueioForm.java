@@ -4,14 +4,15 @@ import com.leonardo.proposta.excecao.RegraNegocioException;
 import com.leonardo.proposta.proposta.cartao.Cartao;
 import com.leonardo.proposta.proposta.cartao.StatusCartao;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class BloqueioForm {
 
-    @NotNull
+    @NotBlank
     private String ipCliente;
 
-    @NotNull
+    @NotBlank
     private String userAgent;
 
     public BloqueioForm(String ipCliente, String userAgent) {

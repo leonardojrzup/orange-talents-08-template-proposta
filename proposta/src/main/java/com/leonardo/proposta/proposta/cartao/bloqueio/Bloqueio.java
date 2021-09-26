@@ -4,6 +4,7 @@ import com.leonardo.proposta.proposta.cartao.Cartao;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -14,10 +15,10 @@ public class Bloqueio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String ipCliente;
 
-    @NotNull
+    @NotBlank
     private String userAgent;
 
     private LocalDateTime dataBloqueio;

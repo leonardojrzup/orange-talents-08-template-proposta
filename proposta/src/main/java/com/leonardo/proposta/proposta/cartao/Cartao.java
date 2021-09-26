@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,10 +39,10 @@ public class Cartao {
     private Proposta proposta;
 
     @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
-    private List<Biometria> biometrias;
+    private List<Biometria> biometrias = new ArrayList<>();
 
     @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
-    private List<Bloqueio> bloqueios;
+    private List<Bloqueio> bloqueios = new ArrayList<>();
 
     @Deprecated
     public Cartao() {

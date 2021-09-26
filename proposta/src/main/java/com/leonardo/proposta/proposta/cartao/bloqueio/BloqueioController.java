@@ -30,7 +30,6 @@ public class BloqueioController {
     @Transactional
     public ResponseEntity<?> bloquearCartao(@PathVariable("id") Long id, @Valid @RequestBody BloqueioForm form) {
 
-        System.out.println(form.getClass());
         Optional<Cartao> cartaoEncontrado = cartaoRepository.findById(id);
         if (cartaoEncontrado.isEmpty()) {
             throw new EntityNotFoundException("Id do cartão não encontrado no banco de dados");

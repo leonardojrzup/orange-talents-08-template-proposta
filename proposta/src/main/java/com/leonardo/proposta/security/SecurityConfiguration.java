@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configurers.oauth2.ser
 
 @Configuration
 @EnableWebSecurity
+@Profile("default")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
