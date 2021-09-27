@@ -1,16 +1,16 @@
 package com.leonardo.proposta.proposta.cartao.bloqueio.apiBloqueio;
 
-public class ApiBloqueioResponse {
+public class ApiBloqueioDTO {
 
     private String resultado;
 
     @Deprecated
-    public ApiBloqueioResponse() {
+    public ApiBloqueioDTO() {
 
     }
 
 
-    public ApiBloqueioResponse(String resultado) {
+    public ApiBloqueioDTO(String resultado) {
         this.resultado = resultado;
     }
 

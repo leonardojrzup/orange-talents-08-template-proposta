@@ -23,14 +23,14 @@ public class ConsultarBloqueio {
 
     @Scheduled(fixedDelay = 30000)  //Tempo sempre em milisegundos!
     @Transactional
-    private void executaOperacao() {
+    private void Consultar() {
 
         List<Cartao> cartoesParaSeremAtualizados = cartaoRepository.findByStatusCartao(StatusCartao.PEDIDO_RECEBIDO);
 
         if (!cartoesParaSeremAtualizados.isEmpty()) {
             for (Cartao cartao : cartoesParaSeremAtualizados) {
                 try {
-                    ApiBloqueioResponse response = apiBloqueioLegadoClient.bloquear(cartao.getNumero(), new ApiBloqueioForm("proposta"));
+                    ApiBloqueioDTO response = apiBloqueioLegadoClient.bloquear(cartao.getNumero(), new ApiBloqueioForm("proposta"));
 
                     if (response.getResultado().equals("BLOQUEADO"))
                         cartao.setStatusCartao(StatusCartao.BLOQUEADO);
