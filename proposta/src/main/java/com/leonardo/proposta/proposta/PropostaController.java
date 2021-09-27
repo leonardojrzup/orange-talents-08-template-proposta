@@ -2,6 +2,7 @@ package com.leonardo.proposta.proposta;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.leonardo.proposta.excecao.RegistroDuplicadoException;
+import com.leonardo.proposta.metricas.PropostaMetricas;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosClient;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
@@ -25,6 +26,8 @@ public class PropostaController {
 
     @Autowired
     DadosFinanceirosClient dadosFinanceirosClient;
+    @Autowired
+    PropostaMetricas propostaMetricas;
 
 
     @GetMapping("/{id}")
@@ -52,6 +55,9 @@ public class PropostaController {
         proposta.verificaSituacaoFinanceira(dadosFinanceirosClient);
 
         propostaRepository.save(proposta);
+        propostaMetricas.contador();
+
+
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
