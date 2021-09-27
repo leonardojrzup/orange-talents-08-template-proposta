@@ -4,17 +4,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.leonardo.proposta.excecao.RegistroDuplicadoException;
 import com.leonardo.proposta.metricas.PropostaMetricas;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosClient;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.persistence.*;
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import javax.validation.*;
-import javax.validation.constraints.*;
-import java.net.*;
-import java.util.List;
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.Optional;
 
 @RestController
@@ -45,13 +44,13 @@ public class PropostaController {
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public ResponseEntity<?> salvarProposta(@RequestBody @Valid PropostaForm form) throws JsonProcessingException {
-    Proposta proposta = form.toModel();
+        Proposta proposta = form.toModel();
 
         if (!proposta.isUnique(propostaRepository)) {
             throw new RegistroDuplicadoException("Documento", "Já existe uma proposta em andamento para o documento informando");
         }
 
-        propostaRepository.save(proposta);//Precisa gerar o id para realizar a consulta na API
+        propostaRepository.save(proposta);
         proposta.verificaSituacaoFinanceira(dadosFinanceirosClient);
 
         propostaRepository.save(proposta);
