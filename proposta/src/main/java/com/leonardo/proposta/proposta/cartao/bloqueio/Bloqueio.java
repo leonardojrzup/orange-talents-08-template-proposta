@@ -1,5 +1,6 @@
 package com.leonardo.proposta.proposta.cartao.bloqueio;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.leonardo.proposta.proposta.cartao.Cartao;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +26,7 @@ public class Bloqueio {
 
     @NotNull
     @ManyToOne
+    @JsonIgnore
     private Cartao cartao;
 
     public Bloqueio(String ipCliente, String userAgent, Cartao cartao) {

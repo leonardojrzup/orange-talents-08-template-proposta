@@ -19,7 +19,7 @@ public class ConsultarCartao {
     @Autowired
     CartaoClient cartaoClient;
 
-    @Scheduled(fixedDelay = 300000)  //Tempo sempre em milisegundos!
+    @Scheduled(fixedDelay = 30000)  //Tempo sempre em milisegundos!
     @Transactional
     private void executaOperacao() {
 

@@ -58,8 +58,8 @@ services:
       DB_DATABASE: keycloak
       DB_USER: keycloak
       DB_PASSWORD: password
-      #KEYCLOAK_USER: admin
-      #KEYCLOAK_PASSWORD: Pa55w0rd
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
 
       POSTGRES_PORT_5432_TCP_ADDR: 127.0.0.1
     restart: on-failure

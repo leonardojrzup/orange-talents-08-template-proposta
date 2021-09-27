@@ -23,16 +23,13 @@ public class Cartao {
     @NotNull
     private LocalDateTime emitidoEm;
 
-
     @NotBlank
     private String numero;
 
     @NotNull
     private BigDecimal limite;
 
-
     private StatusCartao statusCartao;
-
 
     @OneToOne(mappedBy = "cartao")
     @JsonIgnore
@@ -102,7 +99,7 @@ public class Cartao {
     }
 
     public boolean isBloqueado() {
-        if (statusCartao.equals(StatusCartao.BLOQUEADO)) {
+        if (statusCartao.equals(StatusCartao.BLOQUEADO) || statusCartao.equals(StatusCartao.PEDIDO_RECEBIDO)) {
             return true;
         }
         return false;

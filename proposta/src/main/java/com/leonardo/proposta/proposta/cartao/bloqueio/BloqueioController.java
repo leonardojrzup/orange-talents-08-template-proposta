@@ -39,6 +39,9 @@ public class BloqueioController {
             bloqueioRepository.save(bloqueio);
             cartao.adicionarBloqueio(bloqueio);
             cartaoRepository.save(cartao);
+
+
+
             URI uri = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
