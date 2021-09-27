@@ -1,9 +1,11 @@
 package com.leonardo.proposta.proposta.cartao.bloqueio;
 
+import com.leonardo.proposta.excecao.CartaoBloqueadoException;
 import com.leonardo.proposta.excecao.RegraNegocioException;
 import com.leonardo.proposta.proposta.cartao.Cartao;
 import com.leonardo.proposta.proposta.cartao.StatusCartao;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -27,7 +29,7 @@ public class BloqueioForm {
     public Bloqueio toModel(Cartao cartao) {
 
         if (cartao.isBloqueado()) {
-            throw new RegraNegocioException("Cartao", "O cartão" + cartao.getId() + " se encontra no estado bloqueado");
+            throw new CartaoBloqueadoException("Cartão", "O cartão " + cartao.getId() + " se encontra no estado bloqueado");
         } else {
             cartao.setStatusCartao(StatusCartao.BLOQUEADO);
             return new Bloqueio(this.ipCliente, this.userAgent, cartao);

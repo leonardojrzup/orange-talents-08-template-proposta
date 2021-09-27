@@ -1,21 +1,19 @@
 package com.leonardo.proposta.proposta.cartao.bloqueio;
 
-import com.leonardo.proposta.proposta.cartao.Cartao;
-
 import java.time.LocalDateTime;
 
 public class BloqueioDTO {
 
     private String numeroCartao;
 
-   private String ipRequisicao;
+    private String userAgent;
 
     private LocalDateTime bloqueadoEm;
 
     public BloqueioDTO(Bloqueio bloqueio) {
-        this.numeroCartao =  bloqueio.getCartao().getNumero().replace( bloqueio.getCartao().getNumero().substring(0, bloqueio.getCartao().getNumero().length() -4), "*");
-        this.ipRequisicao = bloqueio.getIpCliente();
+        this.numeroCartao = bloqueio.getCartao().getNumero().replace(bloqueio.getCartao().getNumero().substring(0, bloqueio.getCartao().getNumero().length() - 4), "*");
         this.bloqueadoEm = bloqueio.getDataBloqueio();
+        this.userAgent = bloqueio.getUserAgent();
     }
 
 
@@ -23,8 +21,8 @@ public class BloqueioDTO {
         return numeroCartao;
     }
 
-    public String getIpRequisicao() {
-        return ipRequisicao;
+    public String getUserAgent() {
+        return userAgent;
     }
 
     public LocalDateTime getBloqueadoEm() {

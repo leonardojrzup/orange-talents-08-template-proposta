@@ -25,7 +25,6 @@ public class BiometriaForm {
         if (isBase64(this.digital)) {
             return new Biometria(this.digital, cartao);
         } else {
-            System.out.println("Digital inválida");
             throw new RegraNegocioException("Digital", "Digital não está no formato adequado");
         }
     }

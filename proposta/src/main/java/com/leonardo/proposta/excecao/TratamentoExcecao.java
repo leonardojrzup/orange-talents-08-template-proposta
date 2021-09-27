@@ -37,12 +37,10 @@ public class TratamentoExcecao {
         return List.of(new Erro(ex.getCampo(), ex.getMensagem()));
     }
 
-
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     public Erro handleEntityNotFound(EntityNotFoundException ex) {
         String campo = "Id";
-        // String mensagem =  ex.getFieldErrors().get(i).getDefaultMessage();
         String mensagem = ex.getMessage();
         return new Erro(campo, mensagem);
 
@@ -55,6 +53,15 @@ public class TratamentoExcecao {
         String mensagem = ex.getMensagem();
         return new Erro(campo, mensagem);
     }
+
+    @ExceptionHandler(CartaoBloqueadoException.class)
+    @ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
+    public Erro handleRegraDeNegocioException(CartaoBloqueadoException ex) {
+        String campo = ex.getCampo();
+        String mensagem = ex.getMensagem();
+        return new Erro(campo, mensagem);
+    }
+
 
 }
 
