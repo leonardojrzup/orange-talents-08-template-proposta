@@ -1,13 +1,11 @@
 package com.leonardo.proposta.cartao.avisoViagem;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class AvisoViagemDto {
 
@@ -15,38 +13,31 @@ public class AvisoViagemDto {
 
     private String destino;
 
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private LocalDateTime terminoViagem;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate terminoViagem;
 
+
+    @Deprecated
+    AvisoViagemDto() {
+    }
 
     public AvisoViagemDto(AvisoViagem viagem) {
-    this.ultimosQuatroDigitosCartao = viagem.getCartao().getNumero().substring( viagem.getCartao().getNumero().length() -4);
-    this.destino = viagem.getDestino();
-    this.terminoViagem = viagem.getTerminoViagem();
+        this.ultimosQuatroDigitosCartao = viagem.getCartao().getNumero().substring(viagem.getCartao().getNumero().length() - 4);
+        this.destino = viagem.getDestino();
+        this.terminoViagem = viagem.getTerminoViagem();
     }
 
     public String getUltimosQuatroDigitosCartao() {
         return ultimosQuatroDigitosCartao;
     }
 
-    public void setUltimosQuatroDigitosCartao(String ultimosQuatroDigitosCartao) {
-        this.ultimosQuatroDigitosCartao = ultimosQuatroDigitosCartao;
-    }
-
     public String getDestino() {
         return destino;
     }
 
-    public void setDestino(String destino) {
-        this.destino = destino;
-    }
-
-    public LocalDateTime getTerminoViagem() {
+    public LocalDate getTerminoViagem() {
         return terminoViagem;
-    }
-
-    public void setTerminoViagem(LocalDateTime terminoViagem) {
-        this.terminoViagem = terminoViagem;
     }
 }
 

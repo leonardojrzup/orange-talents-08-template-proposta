@@ -112,6 +112,10 @@ public class Cartao {
     public void adicionarViagem(AvisoViagem viagem) {
         this.viagens.add(viagem);
     }
+
+    public List<AvisoViagem> getViagens() {
+        return viagens;
+    }
 }
 
 

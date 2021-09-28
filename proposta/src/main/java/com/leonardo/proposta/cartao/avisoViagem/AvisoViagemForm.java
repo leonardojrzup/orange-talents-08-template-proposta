@@ -1,7 +1,9 @@
 package com.leonardo.proposta.cartao.avisoViagem;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.leonardo.proposta.cartao.Cartao;
 import com.leonardo.proposta.cartao.StatusCartao;
 import com.leonardo.proposta.excecao.CartaoBloqueadoException;
@@ -10,7 +12,6 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class AvisoViagemForm {
 
@@ -19,8 +20,9 @@ public class AvisoViagemForm {
 
     @NotNull
     @Future
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private LocalDateTime terminoViagem;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate terminoViagem;
 
 
     @NotBlank
@@ -34,7 +36,7 @@ public class AvisoViagemForm {
 
     }
 
-    public AvisoViagemForm(String destinoViagem, LocalDateTime terminoViagem, String ipClient, String userAgent) {
+    public AvisoViagemForm(String destinoViagem, LocalDate terminoViagem, String ipClient, String userAgent) {
         this.destinoViagem = destinoViagem;
         this.terminoViagem = terminoViagem;
         this.ipClient = ipClient;
@@ -53,7 +55,7 @@ public class AvisoViagemForm {
         return destinoViagem;
     }
 
-    public LocalDateTime getTerminoViagem() {
+    public LocalDate getTerminoViagem() {
         return terminoViagem;
     }
 

@@ -29,6 +29,12 @@ public class PropostaController {
     PropostaMetricas propostaMetricas;
 
 
+
+    @GetMapping
+    public Iterable<Proposta> detalhar() {
+       return propostaRepository.findAll();
+        }
+
     @GetMapping("/{id}")
     public ResponseEntity<PropostaDTO> detalharProposta(@PathVariable("id") Long id) {
         Optional<Proposta> proposta = propostaRepository.findById(id);

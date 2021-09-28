@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
@@ -50,7 +51,7 @@ public class AvisoViagemControllerTest {
         proposta.adicionarCartão(cartao);
         propostaRepository.save(proposta);
 
-        AvisoViagemForm viagem = new AvisoViagemForm("Anápolis", LocalDateTime.of(2021, 10, 21, 14, 30), "192.168.12.7", "Google Chrome");
+        AvisoViagemForm viagem = new AvisoViagemForm("Anápolis", LocalDate.of(2021, 10, 10), "192.168.12.7", "Google Chrome");
 
         MockHttpServletRequestBuilder request = post("/cartoes/" + cartao.getId().toString() + "/viagens")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -71,7 +72,7 @@ public class AvisoViagemControllerTest {
         proposta.adicionarCartão(cartao);
         propostaRepository.save(proposta);
 
-        AvisoViagemForm viagem = new AvisoViagemForm("Anápolis", LocalDateTime.of(2021, 10, 21, 14, 30), "", "Google Chrome");
+        AvisoViagemForm viagem = new AvisoViagemForm("Anápolis", LocalDate.of(2021, 10, 21), "", "Google Chrome");
 
         MockHttpServletRequestBuilder request = post("/cartoes/" + cartao.getId().toString() + "/viagens")
                 .locale(new Locale("pt", "BR"))
@@ -96,7 +97,7 @@ public class AvisoViagemControllerTest {
         proposta.adicionarCartão(cartao);
         propostaRepository.save(proposta);
 
-        AvisoViagemForm viagem = new AvisoViagemForm("", LocalDateTime.of(2021, 10, 21, 14, 30), "192.168.12.7", "Google Chrome");
+        AvisoViagemForm viagem = new AvisoViagemForm("", LocalDate.of(2021, 10, 21), "192.168.12.7", "Google Chrome");
         MockHttpServletRequestBuilder request = post("/cartoes/" + cartao.getId().toString() + "/viagens")
                 .locale(new Locale("pt", "BR"))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -121,7 +122,7 @@ public class AvisoViagemControllerTest {
         proposta.adicionarCartão(cartao);
         propostaRepository.save(proposta);
 
-        AvisoViagemForm viagem = new AvisoViagemForm("Brasilia", LocalDateTime.of(2021, 07, 21, 14, 30), "192.168.12.7", "Google Chrome");
+        AvisoViagemForm viagem = new AvisoViagemForm("Brasilia", LocalDate.of(2021, 07, 21), "192.168.12.7", "Google Chrome");
 
 
         MockHttpServletRequestBuilder request = post("/cartoes/" + cartao.getId().toString() + "/viagens")
@@ -148,7 +149,7 @@ public class AvisoViagemControllerTest {
         proposta.adicionarCartão(cartao);
         propostaRepository.save(proposta);
 
-        AvisoViagemForm viagem = new AvisoViagemForm("Anápolis", LocalDateTime.of(2021, 10, 21, 14, 30), "192.168.12.7", "");
+        AvisoViagemForm viagem = new AvisoViagemForm("Anápolis", LocalDate.of(2021, 10, 21), "192.168.12.7", "");
 
 
         MockHttpServletRequestBuilder request = post("/cartoes/" + cartao.getId().toString() + "/viagens")
@@ -167,11 +168,12 @@ public class AvisoViagemControllerTest {
 
     @Test
     public void naoDeveCadastrarViagemEmUmCartaoInexistente() throws Exception {
-        BloqueioForm bloqueio = new BloqueioForm("192.168.7.12", "Mozilla Giroflex");
 
-        MockHttpServletRequestBuilder request = post("/cartoes/63478324236472368/bloqueio")
+        AvisoViagemForm viagem = new AvisoViagemForm("Anápolis", LocalDate.of(2021, 10, 21), "192.168.12.7", "Google Chrome");
+
+        MockHttpServletRequestBuilder request = post("/cartoes/63478324236472368/viagens")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(bloqueio));
+                .content(new ObjectMapper().writeValueAsString(viagem));
 
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
@@ -188,11 +190,11 @@ public class AvisoViagemControllerTest {
         proposta.adicionarCartão(cartao);
         propostaRepository.save(proposta);
 
-        BloqueioForm bloqueio = new BloqueioForm("192.168.7.12", "Mozilla Giroflex");
+        AvisoViagemForm viagem = new AvisoViagemForm("Anápolis", LocalDate.of(2021, 10, 21), "192.168.12.7", "Safari 1.6");
 
-        MockHttpServletRequestBuilder request = post("/cartoes/" + cartao.getId().toString() + "/bloqueio")
+        MockHttpServletRequestBuilder request = post("/cartoes/" + cartao.getId().toString() + "/viagens")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(bloqueio));
+                .content(new ObjectMapper().writeValueAsString(viagem));
 
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())

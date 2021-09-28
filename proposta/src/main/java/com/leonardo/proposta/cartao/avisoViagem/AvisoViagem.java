@@ -28,7 +28,7 @@ public class AvisoViagem {
 
     @NotNull
     @Future
-    private LocalDateTime terminoViagem;
+    private LocalDate terminoViagem;
 
     private LocalDateTime instanteDeCriacao = LocalDateTime.now();
 
@@ -41,7 +41,7 @@ public class AvisoViagem {
     public AvisoViagem() {
     }
 
-    public AvisoViagem(String destino, String ip, String userAgent, LocalDateTime terminoViagem, Cartao cartao) {
+    public AvisoViagem(String destino, String ip, String userAgent, LocalDate terminoViagem, Cartao cartao) {
         this.destino = destino;
         this.ip = ip;
         this.userAgent = userAgent;
@@ -65,7 +65,7 @@ public class AvisoViagem {
         return userAgent;
     }
 
-    public LocalDateTime getTerminoViagem() {
+    public LocalDate getTerminoViagem() {
         return terminoViagem;
     }
 
