@@ -1,4 +1,4 @@
-package com.leonardo.proposta.proposta.cartao.biometria;
+package com.leonardo.proposta.cartao.biometria;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package com.leonardo.proposta.proposta.cartao.bloqueio;
+package com.leonardo.proposta.cartao.bloqueio;
 
 import java.time.LocalDateTime;
 

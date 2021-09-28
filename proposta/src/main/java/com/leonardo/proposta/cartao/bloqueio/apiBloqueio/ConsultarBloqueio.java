@@ -1,9 +1,9 @@
-package com.leonardo.proposta.proposta.cartao.bloqueio.apiBloqueio;
+package com.leonardo.proposta.cartao.bloqueio.apiBloqueio;
 
 
-import com.leonardo.proposta.proposta.cartao.Cartao;
-import com.leonardo.proposta.proposta.cartao.CartaoRepository;
-import com.leonardo.proposta.proposta.cartao.StatusCartao;
+import com.leonardo.proposta.cartao.Cartao;
+import com.leonardo.proposta.cartao.CartaoRepository;
+import com.leonardo.proposta.cartao.StatusCartao;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

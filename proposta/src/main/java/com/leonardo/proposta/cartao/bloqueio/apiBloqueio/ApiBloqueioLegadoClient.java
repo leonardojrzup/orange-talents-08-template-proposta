@@ -1,4 +1,4 @@
-package com.leonardo.proposta.proposta.cartao.bloqueio.apiBloqueio;
+package com.leonardo.proposta.cartao.bloqueio.apiBloqueio;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;

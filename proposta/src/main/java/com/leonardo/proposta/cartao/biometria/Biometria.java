@@ -1,6 +1,6 @@
-package com.leonardo.proposta.proposta.cartao.biometria;
+package com.leonardo.proposta.cartao.biometria;
 
-import com.leonardo.proposta.proposta.cartao.Cartao;
+import com.leonardo.proposta.cartao.Cartao;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

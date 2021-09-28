@@ -1,8 +1,8 @@
-package com.leonardo.proposta.proposta.cartao.bloqueio;
+package com.leonardo.proposta.cartao.bloqueio;
 
 
-import com.leonardo.proposta.proposta.cartao.Cartao;
-import com.leonardo.proposta.proposta.cartao.CartaoRepository;
+import com.leonardo.proposta.cartao.Cartao;
+import com.leonardo.proposta.cartao.CartaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

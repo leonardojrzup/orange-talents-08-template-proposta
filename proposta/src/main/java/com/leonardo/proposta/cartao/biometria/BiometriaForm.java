@@ -1,8 +1,8 @@
-package com.leonardo.proposta.proposta.cartao.biometria;
+package com.leonardo.proposta.cartao.biometria;
 
 
 import com.leonardo.proposta.excecao.RegraNegocioException;
-import com.leonardo.proposta.proposta.cartao.Cartao;
+import com.leonardo.proposta.cartao.Cartao;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Base64;

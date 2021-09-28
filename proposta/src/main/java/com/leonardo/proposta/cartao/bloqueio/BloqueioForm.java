@@ -1,8 +1,8 @@
-package com.leonardo.proposta.proposta.cartao.bloqueio;
+package com.leonardo.proposta.cartao.bloqueio;
 
 import com.leonardo.proposta.excecao.CartaoBloqueadoException;
-import com.leonardo.proposta.proposta.cartao.Cartao;
-import com.leonardo.proposta.proposta.cartao.StatusCartao;
+import com.leonardo.proposta.cartao.Cartao;
+import com.leonardo.proposta.cartao.StatusCartao;
 
 import javax.validation.constraints.NotBlank;
 

@@ -1,8 +1,7 @@
-package com.leonardo.proposta.proposta.cartao.bloqueio;
+package com.leonardo.proposta.cartao.bloqueio;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.leonardo.proposta.proposta.cartao.Cartao;
-import org.springframework.stereotype.Repository;
+import com.leonardo.proposta.cartao.Cartao;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

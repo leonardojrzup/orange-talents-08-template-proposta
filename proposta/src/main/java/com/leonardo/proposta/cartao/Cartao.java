@@ -1,9 +1,10 @@
-package com.leonardo.proposta.proposta.cartao;
+package com.leonardo.proposta.cartao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.leonardo.proposta.cartao.avisoViagem.AvisoViagem;
 import com.leonardo.proposta.proposta.Proposta;
-import com.leonardo.proposta.proposta.cartao.biometria.Biometria;
-import com.leonardo.proposta.proposta.cartao.bloqueio.Bloqueio;
+import com.leonardo.proposta.cartao.biometria.Biometria;
+import com.leonardo.proposta.cartao.bloqueio.Bloqueio;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -40,6 +41,9 @@ public class Cartao {
 
     @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
     private List<Bloqueio> bloqueios = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
+    private List<AvisoViagem> viagens = new ArrayList<>();
 
     @Deprecated
     public Cartao() {
@@ -105,6 +109,9 @@ public class Cartao {
         return false;
     }
 
+    public void adicionarViagem(AvisoViagem viagem) {
+        this.viagens.add(viagem);
+    }
 }
 
 

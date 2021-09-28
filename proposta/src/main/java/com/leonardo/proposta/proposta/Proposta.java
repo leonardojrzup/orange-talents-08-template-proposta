@@ -2,7 +2,7 @@ package com.leonardo.proposta.proposta;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leonardo.proposta.proposta.cartao.*;
+import com.leonardo.proposta.cartao.*;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosClient;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosDTO;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosForm;

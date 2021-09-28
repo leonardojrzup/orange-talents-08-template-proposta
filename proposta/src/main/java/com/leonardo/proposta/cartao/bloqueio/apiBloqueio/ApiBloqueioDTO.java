@@ -1,4 +1,4 @@
-package com.leonardo.proposta.proposta.cartao.bloqueio.apiBloqueio;
+package com.leonardo.proposta.cartao.bloqueio.apiBloqueio;
 
 public class ApiBloqueioDTO {
 
