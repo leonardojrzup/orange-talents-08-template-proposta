@@ -43,7 +43,6 @@ public class TratamentoExcecao {
         String campo = "Id";
         String mensagem = ex.getMessage();
         return new Erro(campo, mensagem);
-
     }
 
     @ExceptionHandler(RegraNegocioException.class)

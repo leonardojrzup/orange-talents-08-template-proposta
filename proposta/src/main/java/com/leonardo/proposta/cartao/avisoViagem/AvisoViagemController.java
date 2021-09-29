@@ -41,16 +41,11 @@ public class AvisoViagemController {
             throw new EntityNotFoundException("Id do cartão não encontrado no banco de dados");
         }
 
-        System.out.println(form.getTerminoViagem());
-        System.out.println(form.getDestinoViagem());
-
 
         try {
             ApiAvisoDto response = apiAvisoViagemLegadoClient.informarAviso(cartaoEncontrado.get().getNumero(), new ApiAvisoForm(form.getDestinoViagem(), form.getTerminoViagem()));
 
-            System.out.println("###########################################################");
-            System.out.println("###########################################################");
-            System.out.println("###########################################################");
+
             if (response.getResultado().equals("CRIADO")) {
                 Cartao cartao = cartaoEncontrado.get();
                 AvisoViagem viagem = form.toModel(cartao);
@@ -64,10 +59,8 @@ public class AvisoViagemController {
             }
         } catch (FeignException exception) {
 
-            System.out.println("###########################################################");
            exception.printStackTrace();
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,
-                    "não foi possível notificar o sistema externo");
+            return ResponseEntity.unprocessableEntity().body("Não foi possivel conectar ao servidor externo, tente novamente mais tarde");
         }
     }
 }

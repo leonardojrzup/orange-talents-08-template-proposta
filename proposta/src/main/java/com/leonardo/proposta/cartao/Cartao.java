@@ -2,9 +2,10 @@ package com.leonardo.proposta.cartao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.leonardo.proposta.cartao.avisoViagem.AvisoViagem;
-import com.leonardo.proposta.proposta.Proposta;
 import com.leonardo.proposta.cartao.biometria.Biometria;
 import com.leonardo.proposta.cartao.bloqueio.Bloqueio;
+import com.leonardo.proposta.carteira.CarteiraDigital;
+import com.leonardo.proposta.proposta.Proposta;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -44,6 +45,9 @@ public class Cartao {
 
     @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
     private List<AvisoViagem> viagens = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
+    private List<CarteiraDigital> carteiras = new ArrayList<>();
 
     @Deprecated
     public Cartao() {
@@ -93,6 +97,10 @@ public class Cartao {
         return statusCartao;
     }
 
+    public List<CarteiraDigital> getCarteiras() {
+        return carteiras;
+    }
+
     public void adicionarBiometria(Biometria biometria) {
         this.biometrias.add(biometria);
     }
@@ -109,12 +117,25 @@ public class Cartao {
         return false;
     }
 
+    public boolean vinculadoCarteira(String carteira) {
+        for (CarteiraDigital carteiraDigital : carteiras) {
+            if (carteiraDigital.getModeloCarteira().toString().equals(carteira)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void adicionarViagem(AvisoViagem viagem) {
         this.viagens.add(viagem);
     }
 
     public List<AvisoViagem> getViagens() {
         return viagens;
+    }
+
+    public void adicionarCarteira(CarteiraDigital carteira) {
+        this.carteiras.add(carteira);
     }
 }
 

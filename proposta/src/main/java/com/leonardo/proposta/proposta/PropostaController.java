@@ -25,15 +25,9 @@ public class PropostaController {
 
     @Autowired
     DadosFinanceirosClient dadosFinanceirosClient;
+
     @Autowired
     PropostaMetricas propostaMetricas;
-
-
-
-    @GetMapping
-    public Iterable<Proposta> detalhar() {
-       return propostaRepository.findAll();
-        }
 
     @GetMapping("/{id}")
     public ResponseEntity<PropostaDTO> detalharProposta(@PathVariable("id") Long id) {
@@ -43,8 +37,8 @@ public class PropostaController {
             return ResponseEntity.status(HttpStatus.OK).body(new PropostaDTO(propostaSalva));
         }else{
             throw new EntityNotFoundException("ID da proposta não encontrado no banco de dados.");
+        }
     }
-}
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
