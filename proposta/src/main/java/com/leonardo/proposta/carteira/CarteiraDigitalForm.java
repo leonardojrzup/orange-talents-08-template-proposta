@@ -1,8 +1,6 @@
 package com.leonardo.proposta.carteira;
 
 import com.leonardo.proposta.cartao.Cartao;
-import com.leonardo.proposta.excecao.RegraNegocioException;
-import com.leonardo.proposta.validacao.CarteirasSuportadas;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

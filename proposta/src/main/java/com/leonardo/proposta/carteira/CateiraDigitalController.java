@@ -6,6 +6,8 @@ import com.leonardo.proposta.carteira.apiCarteiras.ApiCarteiraDigitalDto;
 import com.leonardo.proposta.carteira.apiCarteiras.ApiCarteiraDigitalForm;
 import com.leonardo.proposta.carteira.apiCarteiras.ApiCateiraDigitalClient;
 import feign.FeignException;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,9 @@ import java.util.Optional;
 public class CateiraDigitalController {
 
     @Autowired
+    Tracer tracer;
+
+    @Autowired
     ApiCateiraDigitalClient apiCateiraDigitalClient;
 
     @Autowired
@@ -29,6 +34,7 @@ public class CateiraDigitalController {
 
     @Autowired
     CarteiraDigitalRepository carteiraDigitalRepository;
+
 
 
     @PostMapping("/cartoes/{id}/carteiras")
@@ -52,7 +58,7 @@ public class CateiraDigitalController {
                 carteiraDigitalRepository.save(carteira);
                 cartao.adicionarCarteira(carteira);
                 cartaoRepository.save(cartao);
-
+                Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", cartao.getProposta().getEmail());
                 URI uri = ServletUriComponentsBuilder
                         .fromCurrentRequest()
                         .path("/{id}")

@@ -5,6 +5,8 @@ import com.leonardo.proposta.cartao.Cartao;
 import com.leonardo.proposta.cartao.CartaoRepository;
 import com.leonardo.proposta.cartao.StatusCartao;
 import feign.FeignException;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,9 @@ import java.util.List;
 
 @Component
 public class ConsultarBloqueio {
+
+    @Autowired
+    Tracer tracer;
 
     @Autowired
     CartaoRepository cartaoRepository;
@@ -36,7 +41,7 @@ public class ConsultarBloqueio {
                         cartao.setStatusCartao(StatusCartao.BLOQUEADO);
                     cartaoRepository.save(cartao);
                     System.out.println(cartao.getId() + " bloqueado");
-
+                    Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", cartao.getProposta().getEmail());
 
                 } catch (FeignException feignException) {
                     cartao.setStatusCartao(StatusCartao.DESBLOQUEADO);

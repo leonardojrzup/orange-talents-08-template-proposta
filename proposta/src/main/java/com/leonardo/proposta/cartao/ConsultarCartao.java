@@ -3,6 +3,8 @@ package com.leonardo.proposta.cartao;
 
 import com.leonardo.proposta.proposta.*;
 import feign.*;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.scheduling.annotation.*;
 import org.springframework.stereotype.*;
@@ -12,6 +14,8 @@ import java.util.*;
 
 @Component
 public class ConsultarCartao {
+    @Autowired
+    Tracer tracer;
 
     @Autowired
     PropostaRepository propostaRepository;
@@ -32,6 +36,7 @@ public class ConsultarCartao {
                 Cartao cartao = cartaoDTO.toModel(proposta);
                 proposta.adicionarCartão(cartao);
                 propostaRepository.save(proposta);
+                Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", cartao.getProposta().getEmail());
             } catch (FeignException feignException) {
                 feignException.printStackTrace();
             }

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.leonardo.proposta.excecao.RegistroDuplicadoException;
 import com.leonardo.proposta.metricas.PropostaMetricas;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosClient;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ import java.util.Optional;
 public class PropostaController {
 
     @Autowired
+    Tracer tracer;
+
+    @Autowired
     PropostaRepository propostaRepository;
 
     @Autowired
@@ -28,6 +33,7 @@ public class PropostaController {
 
     @Autowired
     PropostaMetricas propostaMetricas;
+
 
     @GetMapping("/{id}")
     public ResponseEntity<PropostaDTO> detalharProposta(@PathVariable("id") Long id) {
@@ -49,15 +55,11 @@ public class PropostaController {
         if (!proposta.isUnique(propostaRepository)) {
             throw new RegistroDuplicadoException("Documento", "Já existe uma proposta em andamento para o documento informando");
         }
-
         propostaRepository.save(proposta);
         proposta.verificaSituacaoFinanceira(dadosFinanceirosClient);
-
         propostaRepository.save(proposta);
         propostaMetricas.contador();
-
-
-
+        Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", proposta.getEmail());
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

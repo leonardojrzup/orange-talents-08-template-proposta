@@ -3,6 +3,8 @@ package com.leonardo.proposta.cartao.bloqueio;
 
 import com.leonardo.proposta.cartao.Cartao;
 import com.leonardo.proposta.cartao.CartaoRepository;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +21,14 @@ import java.util.Optional;
 public class BloqueioController {
 
     @Autowired
+    Tracer tracer;
+
+    @Autowired
     BloqueioRepository bloqueioRepository;
 
     @Autowired
     CartaoRepository cartaoRepository;
+
 
 
     @PostMapping("/cartoes/{id}/bloqueio")
@@ -41,7 +47,7 @@ public class BloqueioController {
             cartaoRepository.save(cartao);
 
 
-
+            Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", cartao.getProposta().getEmail());
             URI uri = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
