@@ -44,6 +44,7 @@ public class AvisoViagemController {
             throw new EntityNotFoundException("Id do cartão não encontrado no banco de dados");
         }
         try {
+            Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", cartaoEncontrado.get().getProposta().getEmail());
             ApiAvisoDto response = apiAvisoViagemLegadoClient.informarAviso(cartaoEncontrado.get().getNumero(), new ApiAvisoForm(form.getDestinoViagem(), form.getTerminoViagem()));
             if (response.getResultado().equals("CRIADO")) {
                 Cartao cartao = cartaoEncontrado.get();
@@ -51,7 +52,7 @@ public class AvisoViagemController {
                 avisoViagemRepository.save(viagem);
                 cartao.adicionarViagem(viagem);
                 cartaoRepository.save(cartao);
-                Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", cartao.getProposta().getEmail());
+
                 return ResponseEntity.ok().body(new AvisoViagemDto(viagem));
 
             } else {

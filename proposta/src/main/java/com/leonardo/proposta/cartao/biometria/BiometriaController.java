@@ -39,12 +39,12 @@ public class BiometriaController {
             throw new EntityNotFoundException("Id do cartão não encontrado no banco de dados");
 
         else ;
+        Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", cartaoEncontrado.get().getProposta().getEmail());
         Cartao cartao = cartaoEncontrado.get();
         Biometria biometria = form.toModel(cartao);
         biometriaRepository.save(biometria);
         cartao.adicionarBiometria(biometria);
         cartaoRepository.save(cartao);
-        Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", cartao.getProposta().getEmail());
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

@@ -36,7 +36,7 @@ public class ConsultarCartao {
                 Cartao cartao = cartaoDTO.toModel(proposta);
                 proposta.adicionarCartão(cartao);
                 propostaRepository.save(proposta);
-                Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", cartao.getProposta().getEmail());
+                Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", proposta.getEmail());
             } catch (FeignException feignException) {
                 feignException.printStackTrace();
             }

@@ -40,14 +40,12 @@ public class BloqueioController {
         if (cartaoEncontrado.isEmpty()) {
             throw new EntityNotFoundException("Id do cartão não encontrado no banco de dados");
         } else {
+            Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", cartaoEncontrado.get().getProposta().getEmail());
             Cartao cartao = cartaoEncontrado.get();
             Bloqueio bloqueio = form.toModel(cartao);
             bloqueioRepository.save(bloqueio);
             cartao.adicionarBloqueio(bloqueio);
             cartaoRepository.save(cartao);
-
-
-            Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", cartao.getProposta().getEmail());
             URI uri = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")

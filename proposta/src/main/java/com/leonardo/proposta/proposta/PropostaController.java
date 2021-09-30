@@ -55,11 +55,14 @@ public class PropostaController {
         if (!proposta.isUnique(propostaRepository)) {
             throw new RegistroDuplicadoException("Documento", "Já existe uma proposta em andamento para o documento informando");
         }
+        Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", proposta.getEmail());
+        activeSpan.log("Email");
+
         propostaRepository.save(proposta);
         proposta.verificaSituacaoFinanceira(dadosFinanceirosClient);
         propostaRepository.save(proposta);
         propostaMetricas.contador();
-        Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", proposta.getEmail());
+
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

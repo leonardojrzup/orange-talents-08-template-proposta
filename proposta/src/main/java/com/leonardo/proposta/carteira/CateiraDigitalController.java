@@ -49,7 +49,7 @@ public class CateiraDigitalController {
             return ResponseEntity.unprocessableEntity().body("Cartão ja está vinculado a carteira " + form.getModeloCarteira());
 
         try {
-
+            Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", cartaoEncontrado.get().getProposta().getEmail());
             ApiCarteiraDigitalDto response = apiCateiraDigitalClient.consultar(cartaoEncontrado.get().getNumero(), new ApiCarteiraDigitalForm(form.getEmail(), form.getModeloCarteira().toString()));
             if (response.getResultado().equals("ASSOCIADA")) {
 
@@ -58,7 +58,6 @@ public class CateiraDigitalController {
                 carteiraDigitalRepository.save(carteira);
                 cartao.adicionarCarteira(carteira);
                 cartaoRepository.save(cartao);
-                Span activeSpan = tracer.activeSpan().setBaggageItem("user.email", cartao.getProposta().getEmail());
                 URI uri = ServletUriComponentsBuilder
                         .fromCurrentRequest()
                         .path("/{id}")
