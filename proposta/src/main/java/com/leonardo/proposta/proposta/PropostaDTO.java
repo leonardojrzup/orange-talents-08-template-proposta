@@ -1,5 +1,7 @@
 package com.leonardo.proposta.proposta;
 
+import com.leonardo.proposta.utils.Encrypt;
+
 import java.math.BigDecimal;
 
 public class PropostaDTO {

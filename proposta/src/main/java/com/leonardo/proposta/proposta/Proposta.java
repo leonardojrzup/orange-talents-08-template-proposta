@@ -6,6 +6,7 @@ import com.leonardo.proposta.cartao.*;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosClient;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosDTO;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosForm;
+import com.leonardo.proposta.utils.Encrypt;
 import com.leonardo.proposta.validacao.*;
 import feign.FeignException;
 
@@ -21,7 +22,7 @@ public class Proposta {
     private Long id;
 
     @NotNull
-    @Documento
+
     private String documento;
 
     @NotBlank
@@ -46,7 +47,7 @@ public class Proposta {
 
 
     public Proposta(String documento, String email, String nome, String endereco, BigDecimal salario) {
-        this.documento = documento;
+        this.documento = Encrypt.encrypt(documento);
         this.email = email;
         this.nome = nome;
         this.endereco = endereco;
