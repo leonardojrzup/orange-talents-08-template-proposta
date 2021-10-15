@@ -62,7 +62,8 @@ public class Proposta {
     }
 
     public String getDocumento() {
-        return documento;
+
+        return Encrypt.decrypt(documento);
     }
 
     public String getEmail() {
@@ -87,21 +88,6 @@ public class Proposta {
             return  false;
         }
         return true;
-    }
-
-    public void verificaSituacaoFinanceira(DadosFinanceirosClient situacaoFinanceiraClient) throws JsonProcessingException {
-        DadosFinanceirosForm request = new DadosFinanceirosForm(this);
-        DadosFinanceirosDTO response;
-
-         try {
-             response = situacaoFinanceiraClient.consultar(request);
-         }catch (FeignException exception) {
-             //exception.printStackTrace();
-             ObjectMapper objectMapper = new ObjectMapper();
-             response = objectMapper.readValue(exception.contentUTF8(), DadosFinanceirosDTO.class);
-
-         }
-        this.setStatus(StatusProposta.converter(response.getResultadoSolicitacao()));
     }
 
 

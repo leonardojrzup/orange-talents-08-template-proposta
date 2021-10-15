@@ -1,9 +1,13 @@
 package com.leonardo.proposta.proposta;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leonardo.proposta.excecao.RegistroDuplicadoException;
 import com.leonardo.proposta.metricas.PropostaMetricas;
 import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosClient;
+import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosDTO;
+import com.leonardo.proposta.proposta.situacaoFinanceira.DadosFinanceirosForm;
+import feign.FeignException;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -33,6 +39,8 @@ public class PropostaController {
 
     @Autowired
     PropostaMetricas propostaMetricas;
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
     @GetMapping("/{id}")
@@ -59,7 +67,7 @@ public class PropostaController {
         activeSpan.log("Email");
 
         propostaRepository.save(proposta);
-        proposta.verificaSituacaoFinanceira(dadosFinanceirosClient);
+        verificaSituacaoFinanceira(proposta);
         propostaRepository.save(proposta);
         propostaMetricas.contador();
 
@@ -69,5 +77,23 @@ public class PropostaController {
                 .buildAndExpand(proposta.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+
+
+
+    public void verificaSituacaoFinanceira(Proposta proposta) throws JsonProcessingException {
+        DadosFinanceirosForm request = new DadosFinanceirosForm(proposta);
+        DadosFinanceirosDTO response;
+        try {
+            response = dadosFinanceirosClient.consultar(request);
+        }catch (FeignException exception) {
+            //exception.printStackTrace();
+            ObjectMapper objectMapper = new ObjectMapper();
+            response = objectMapper.readValue(exception.contentUTF8(), DadosFinanceirosDTO.class);
+            logger.error("Retorno com erro da API de avaliação financeira"
+                    +exception.getCause().toString());
+        }
+        proposta.setStatus(StatusProposta.converter(response.getResultadoSolicitacao()));
     }
 }

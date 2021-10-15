@@ -1,4 +1,4 @@
-package com.leonardo.proposta.carteira;
+package com.leonardo.proposta.cartao.carteira;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.leonardo.proposta.cartao.Cartao;

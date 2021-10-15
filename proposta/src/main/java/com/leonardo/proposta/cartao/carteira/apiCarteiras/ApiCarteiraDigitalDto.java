@@ -1,4 +1,4 @@
-package com.leonardo.proposta.carteira.apiCarteiras;
+package com.leonardo.proposta.cartao.carteira.apiCarteiras;
 
 public class ApiCarteiraDigitalDto {
 

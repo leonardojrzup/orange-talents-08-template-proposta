@@ -33,6 +33,7 @@ public class ConsultarCartao {
         for (Proposta proposta : propostas) {
             try {
                 CartaoDTO cartaoDTO = cartaoClient.consultar(new CartaoForm(proposta.getDocumento(), proposta.getNome(), proposta.getId()));
+
                 Cartao cartao = cartaoDTO.toModel(proposta);
                 proposta.adicionarCartão(cartao);
                 propostaRepository.save(proposta);

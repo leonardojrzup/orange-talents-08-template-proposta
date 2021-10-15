@@ -62,6 +62,15 @@ public class TratamentoExcecao {
     }
 
 
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public Erro validacaoExceptionGenerica(Exception exception) {
+        String campo = "Erro interno no servidor";
+        String mensagem = exception.getLocalizedMessage();
+        return new Erro(campo, mensagem);
+    }
+
+
 }
 
 

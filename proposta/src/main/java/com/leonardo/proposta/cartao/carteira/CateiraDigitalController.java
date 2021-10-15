@@ -1,10 +1,10 @@
-package com.leonardo.proposta.carteira;
+package com.leonardo.proposta.cartao.carteira;
 
 import com.leonardo.proposta.cartao.Cartao;
 import com.leonardo.proposta.cartao.CartaoRepository;
-import com.leonardo.proposta.carteira.apiCarteiras.ApiCarteiraDigitalDto;
-import com.leonardo.proposta.carteira.apiCarteiras.ApiCarteiraDigitalForm;
-import com.leonardo.proposta.carteira.apiCarteiras.ApiCateiraDigitalClient;
+import com.leonardo.proposta.cartao.carteira.apiCarteiras.ApiCarteiraDigitalDto;
+import com.leonardo.proposta.cartao.carteira.apiCarteiras.ApiCarteiraDigitalForm;
+import com.leonardo.proposta.cartao.carteira.apiCarteiras.ApiCateiraDigitalClient;
 import feign.FeignException;
 import io.opentracing.Span;
 import io.opentracing.Tracer;

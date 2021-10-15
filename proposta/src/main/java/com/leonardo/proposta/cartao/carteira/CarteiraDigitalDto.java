@@ -1,4 +1,4 @@
-package com.leonardo.proposta.carteira;
+package com.leonardo.proposta.cartao.carteira;
 
 public class CarteiraDigitalDto {
     private String ultimosQuatroDigitosCartao;

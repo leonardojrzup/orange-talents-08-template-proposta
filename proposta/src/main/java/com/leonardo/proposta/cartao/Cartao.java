@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.leonardo.proposta.cartao.avisoViagem.AvisoViagem;
 import com.leonardo.proposta.cartao.biometria.Biometria;
 import com.leonardo.proposta.cartao.bloqueio.Bloqueio;
-import com.leonardo.proposta.carteira.CarteiraDigital;
+import com.leonardo.proposta.cartao.carteira.CarteiraDigital;
 import com.leonardo.proposta.proposta.Proposta;
 
 import javax.persistence.*;
